@@ -9,6 +9,7 @@ import (
 
 func main() {
 	e := echo.New()
+	e.HideBanner = true
 	e.GET("/", createAccount)
 	e.Logger.Fatal(e.Start(":1323"))
 }
