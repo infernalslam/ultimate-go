@@ -1,22 +1,19 @@
 package main
 
 import (
-	"log"
+	"fmt"
 	"net/http"
+	"reflect"
 
+	"github.com/infernalslam/simple-api/config"
 	"github.com/infernalslam/simple-api/controllers/account"
-	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
 	"github.com/labstack/echo"
 )
 
 func main() {
-	db, err := gorm.Open("mysql", "root:root@tcp(127.0.0.1:3306)/db")
-	if err != nil {
-		log.Println(err)
-		panic("failed to connect database")
-	}
-	defer db.Close()
+	db := config.InitDatabase()
+	fmt.Println(reflect.TypeOf(db))
 	e := echo.New()
 	e.HideBanner = true
 	e.GET("/", createAccount)
